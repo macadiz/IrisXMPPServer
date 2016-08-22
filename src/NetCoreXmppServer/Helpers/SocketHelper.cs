@@ -29,16 +29,15 @@ namespace NetCoreXmppServer.Helpers
             {
                 // Handle the message received and 
                 // send a response back to the client.}
-                Console.WriteLine("TCPCLIENT " + client.InternalId);
                 NetworkStream stream = client.TcpClient.GetStream();
                 byte[] bytes = new byte[4096];
                 stream.Read(bytes, 0, bytes.Length);
                 mstrMessage = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
                 mscClient = client.TcpClient;
                 mstrMessage = mstrMessage.TrimEnd(new char[] { '\0' });
-                Console.Write("Mensaje entrante: ");
+                Console.Write("=>Client " + client.InternalId + ": ");
                 mstrResponse = XmlMessageProccessing(mstrMessage);
-                Console.WriteLine("Mensaje saliente: " + mstrResponse);
+                Console.WriteLine("=>Server to " + client.InternalId + ": " + mstrResponse);
                 bytesSent = Encoding.UTF8.GetBytes(mstrResponse);
                 stream.Write(bytesSent, 0, bytesSent.Length);
             }
@@ -69,6 +68,7 @@ namespace NetCoreXmppServer.Helpers
                                 if (Int32.Parse(intStanza.Attributes["closeConnection"].Value) == 1)
                                 { 
                                     salida = "</stream:stream>";
+                                    Console.WriteLine("=>Client " + client.InternalId + " Disconnected...");
                                     client.Connected = false;
                                 }
                             }
@@ -151,17 +151,23 @@ namespace NetCoreXmppServer.Helpers
         private string createInternalStanza(List<string> xmlStrings)
         {
             string stanzaAttributes = "";
-            string stanzaTemplate = "<intStanza{0}>{1}</intStanza>";
+            string nsString = "";
+            string stanzaTemplate = "<intStanza{0}{1}>{2}</intStanza>";
             string finalXml = "";
             foreach (string xmlString in xmlStrings)
             {
+                string nodeName = xmlString.Substring(1, ((xmlString.IndexOf(' ') > -1) ? xmlString.IndexOf(' ') : xmlString.IndexOf('>')) - 1);
+                if (nodeName.Contains(":"))
+                {
+                    nsString += " xmlns:" + nodeName.Split(':')[0] + "='-'";
+                }
                 if (xmlString.Equals("<stream:stream></stream:stream>"))
                 {
                     stanzaAttributes += " closeConnection='1'";
                 }
                 finalXml += xmlString;
             }
-            return string.Format(stanzaTemplate, stanzaAttributes, finalXml);
+            return string.Format(stanzaTemplate, nsString, stanzaAttributes, finalXml);
         }
 
         private List<String> getXmlElements(string xmlString, List<string> elements)
@@ -174,9 +180,9 @@ namespace NetCoreXmppServer.Helpers
                 string original = "";
                 if (xmlString[1] == '/')
                 {
-                    nodeName = xmlString.Substring(2, xmlString.IndexOf('>') - 1);
-                    original = xmlString.Substring(0, xmlString.IndexOf('>'));
-                    toAdd = "<" + nodeName + ">" + original;
+                    nodeName = xmlString.Substring(2, xmlString.IndexOf('>') - 2);
+                    original = xmlString;
+                    toAdd = "<" + nodeName + ">" + xmlString;
                 }
                 else
                 {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,15 +25,6 @@ namespace NetCoreXmppServer.Threads
         public MainConnectionThread() : base()
         {
             connectionState = new ConnectionState();
-            try
-            {
-                tcpListener = startTcpListener().Result;
-            }
-            catch (Exception ex)
-            {
-                connectionState.Started = false;
-                connectionState.Status = "Error starting Listener : " + ex.Message;
-            }
         }
 
         private async Task<TcpListener> startTcpListener()
@@ -48,7 +40,7 @@ namespace NetCoreXmppServer.Threads
                 {
                     Console.WriteLine(add);
                 }
-                IPAddress ip = IPAddress.Parse("192.168.0.6");
+                IPAddress ip = IPAddress.Parse("192.168.0.11");
                 tcpListener = new TcpListener(ip, 13);
                 tcpListener.Start();
                 output = "Waiting for a connection...@" + tcpListener.LocalEndpoint.ToString();
@@ -72,29 +64,7 @@ namespace NetCoreXmppServer.Threads
 
         public override void RunThread()
         {
-            
-            while (true && connectionState.Started)
-            {
-                Thread clientThread = new Thread(ClientMessageProcess);
-                clientThread.Start();
-                this.Sleep(1000);
-            }
-        }
-
-        private void ClientMessageProcess()
-        {
-            TcpClient tcpClient = acceptTcpClient().Result;
-            var client = tcpClient;
-            Client newClient = new Client(DateTime.Now.ToString("ddMMyyyyHHmmss") + new Random().Next(5000), client);
-            newClient.Connected = true;
-            clients.Add(newClient);
-            // Read the data stream from the client.                 
-            SocketHelper helper = new SocketHelper(newClient);
-
-            if (newClient.Connected)
-            {
-                helper.processMsg();
-            }
+            TcpClientStart();
         }
 
         public class ConnectionState
@@ -128,6 +98,73 @@ namespace NetCoreXmppServer.Threads
             }
 
             private string status;
+        }
+
+        private void TcpClientStart()
+        {
+            try
+            {
+                int port = 13;
+                IPAddress ip = IPAddress.Parse("192.168.0.11");
+                TcpListener serverSocket = new TcpListener(ip, port);
+                TcpClient clientSocket = default(TcpClient);
+
+                serverSocket.Start();
+                tcpListener = serverSocket;
+                Console.WriteLine("=>DotNetXmppServer Started... Listening@" + ip.ToString() + ":" + port);
+                this.connectionState = new ConnectionState();
+                connectionState.Started = true;
+                connectionState.Status = "OK";
+
+                while (true && this.connectionState.Started)
+                {
+                    clientSocket = AcceptClient().Result;
+                    handleClient client = new handleClient();
+                    client.startClient(clientSocket);
+                }
+
+                clientSocket.Dispose();
+                serverSocket.Stop();
+                Console.WriteLine("=>" + "Server Offline");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
+
+        public Task<TcpClient> AcceptClient()
+        {
+            return tcpListener.AcceptTcpClientAsync();
+        }
+
+        //Class to handle each client request separatly
+        public class handleClient
+        {
+            TcpClient clientSocket;
+            string clNo;
+            public void startClient(TcpClient inClientSocket)
+            {
+                this.clientSocket = inClientSocket;
+                Thread ctThread = new Thread(doChat);
+                ctThread.Start();
+            }
+
+            private void doChat()
+            {
+                Client newClient = new Client(DateTime.Now.ToString("ddMMyyyyHHmmss") + new Random().Next(5000), clientSocket);
+                Console.WriteLine("=>Client Id: " + newClient.InternalId + " Connected");
+                newClient.Connected = true;
+                clients.Add(newClient);
+                               
+                SocketHelper helper = new SocketHelper(newClient);
+
+                while (newClient.Connected)
+                {
+                    helper.processMsg();
+                }
+            }
         }
     }
 }
