@@ -100,32 +100,46 @@ namespace NetCoreXmppServer.Threads
             private string status;
         }
 
+        private Task<IPAddress[]> getIpAdressess()
+        {
+            return Dns.GetHostAddressesAsync(Configuration.hostName);
+        }
+
         private void TcpClientStart()
         {
             try
             {
-                int port = 13;
-                IPAddress ip = IPAddress.Parse("192.168.0.11");
-                TcpListener serverSocket = new TcpListener(ip, port);
-                TcpClient clientSocket = default(TcpClient);
+                IPAddress[] ips = getIpAdressess().Result;
+                foreach (IPAddress ip in ips) {
+                    try
+                    {
+                        TcpListener serverSocket = new TcpListener(ip, Configuration.port);
+                        TcpClient clientSocket = default(TcpClient);
 
-                serverSocket.Start();
-                tcpListener = serverSocket;
-                Console.WriteLine("=>DotNetXmppServer Started... Listening@" + ip.ToString() + ":" + port);
-                this.connectionState = new ConnectionState();
-                connectionState.Started = true;
-                connectionState.Status = "OK";
+                        serverSocket.Start();
+                        tcpListener = serverSocket;
+                        Console.WriteLine("=>DotNetXmppServer Started... Listening@" + ip.ToString() + ":" + Configuration.port);
+                        this.connectionState = new ConnectionState();
+                        connectionState.Started = true;
+                        connectionState.Status = "OK";
 
-                while (true && this.connectionState.Started)
-                {
-                    clientSocket = AcceptClient().Result;
-                    handleClient client = new handleClient();
-                    client.startClient(clientSocket);
+                        while (true && this.connectionState.Started)
+                        {
+                            clientSocket = AcceptClient().Result;
+                            handleClient client = new handleClient();
+                            client.startClient(clientSocket);
+                        }
+
+                        clientSocket.Dispose();
+                        serverSocket.Stop();
+                        Console.WriteLine("=>Server Offline");
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("=>Trying to listen@" + ip + ":" + Configuration.port + " failed, trying new configuration");
+                    }
                 }
-
-                clientSocket.Dispose();
-                serverSocket.Stop();
-                Console.WriteLine("=>" + "Server Offline");
             }
             catch (Exception ex)
             {
@@ -134,13 +148,13 @@ namespace NetCoreXmppServer.Threads
 
         }
 
-        public Task<TcpClient> AcceptClient()
+        private Task<TcpClient> AcceptClient()
         {
             return tcpListener.AcceptTcpClientAsync();
         }
 
         //Class to handle each client request separatly
-        public class handleClient
+        private class handleClient
         {
             TcpClient clientSocket;
             string clNo;
