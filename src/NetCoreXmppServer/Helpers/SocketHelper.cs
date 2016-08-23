@@ -2,10 +2,8 @@
 using NetCoreXmppServer.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace NetCoreXmppServer.Helpers
@@ -44,6 +42,7 @@ namespace NetCoreXmppServer.Helpers
             catch(Exception ex)
             {
                 client.Connected = false;
+                Console.WriteLine("=>Client disconnected by: " + ex.Message);
             }
         }
 

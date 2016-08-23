@@ -2,10 +2,8 @@
 using NetCoreXmppServer.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,36 +23,6 @@ namespace NetCoreXmppServer.Threads
         public MainConnectionThread() : base()
         {
             connectionState = new ConnectionState();
-        }
-
-        private async Task<TcpListener> startTcpListener()
-        {
-            TcpListener tcpListener;
-            string output = "";
-            try
-            {
-                IPAddress[] ipAddresses = (await Dns.GetHostEntryAsync("localhost")).AddressList;
-                // Set the listener on the local IP address 
-                // and specify the port.
-                foreach(IPAddress add in ipAddresses)
-                {
-                    Console.WriteLine(add);
-                }
-                IPAddress ip = IPAddress.Parse("192.168.0.11");
-                tcpListener = new TcpListener(ip, 13);
-                tcpListener.Start();
-                output = "Waiting for a connection...@" + tcpListener.LocalEndpoint.ToString();
-                Console.WriteLine(output);
-                connectionState.Started = true;
-                connectionState.Status = "OK";
-                return tcpListener;
-            }
-            catch (Exception e)
-            {
-                output = "Error: " + e.ToString();
-                Console.WriteLine(output);
-                throw e;
-            }
         }
 
         private async Task<TcpClient> acceptTcpClient()
@@ -135,7 +103,7 @@ namespace NetCoreXmppServer.Threads
                         Console.WriteLine("=>Server Offline");
                         break;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         Console.WriteLine("=>Trying to listen@" + ip + ":" + Configuration.port + " failed, trying new configuration");
                     }
@@ -157,7 +125,6 @@ namespace NetCoreXmppServer.Threads
         private class handleClient
         {
             TcpClient clientSocket;
-            string clNo;
             public void startClient(TcpClient inClientSocket)
             {
                 this.clientSocket = inClientSocket;
