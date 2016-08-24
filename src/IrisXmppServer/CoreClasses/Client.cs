@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
-namespace NetCoreXmppServer.CoreClasses
+namespace IrisXMPPServer.CoreClasses
 {
     public class Client
     {

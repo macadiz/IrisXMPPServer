@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NetCoreXmppServer.Enums
+namespace IrisXMPPServer.Enums
 {
-    public enum MessageType
+    public enum IQContext
     {
-        STREAM,
-        IQ,
-        MESSAGE,
-        PRESENCE,
+        AUTH,
+        PING,
         UNKNOWN
     }
 }

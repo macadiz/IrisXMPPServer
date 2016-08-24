@@ -3,6 +3,17 @@
   "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.0": {
+      "Google.ProtocolBuffers/2.4.1.555": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Google.ProtocolBuffers.Serialization.dll": {},
+          "lib/net40/Google.ProtocolBuffers.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Google.ProtocolBuffers.Serialization.dll": {},
+          "lib/net40/Google.ProtocolBuffers.dll": {}
+        }
+      },
       "Libuv/1.9.0": {
         "type": "package",
         "dependencies": {
@@ -277,6 +288,18 @@
           }
         }
       },
+      "MySql.Data/7.0.4-IR19": {
+        "type": "package",
+        "dependencies": {
+          "Google.ProtocolBuffers": "2.4.1.555"
+        },
+        "compile": {
+          "lib/net451/MySql.Data.dll": {}
+        },
+        "runtime": {
+          "lib/net451/MySql.Data.dll": {}
+        }
+      },
       "NETStandard.Library/1.6.0": {
         "type": "package",
         "dependencies": {
@@ -428,6 +451,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Collections.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Collections.Concurrent/4.0.12": {
@@ -526,6 +552,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Diagnostics.Debug.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Diagnostics.DiagnosticSource/4.0.0": {
@@ -628,6 +657,9 @@
         },
         "compile": {
           "ref/netstandard1.0/System.Diagnostics.Tools.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Diagnostics.Tracing/4.1.0": {
@@ -639,6 +671,9 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Diagnostics.Tracing.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Dynamic.Runtime/4.0.11": {
@@ -676,6 +711,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Globalization.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Globalization.Calendars/4.0.1": {
@@ -721,6 +759,9 @@
         },
         "compile": {
           "ref/netstandard1.5/System.IO.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.IO.Compression/4.1.0": {
@@ -743,6 +784,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.IO.Compression.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         },
         "runtimeTargets": {
           "runtimes/win/lib/netstandard1.3/_._": {
@@ -991,6 +1035,9 @@
         "compile": {
           "ref/netstandard1.3/System.Net.Http.dll": {}
         },
+        "runtime": {
+          "lib/net45/_._": {}
+        },
         "runtimeTargets": {
           "runtimes/win/lib/netstandard1.3/_._": {
             "assetType": "runtime",
@@ -1036,6 +1083,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Net.Primitives.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Net.Requests/4.0.11": {
@@ -1057,6 +1107,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Net.Requests.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         },
         "runtimeTargets": {
           "runtimes/win/lib/netstandard1.3/_._": {
@@ -1178,6 +1231,9 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Reflection.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Reflection.DispatchProxy/4.0.1": {
@@ -1256,6 +1312,9 @@
         },
         "compile": {
           "ref/netstandard1.0/System.Reflection.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Reflection.Metadata/1.3.0": {
@@ -1293,6 +1352,9 @@
         },
         "compile": {
           "ref/netstandard1.0/System.Reflection.Primitives.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Reflection.TypeExtensions/4.1.0": {
@@ -1335,6 +1397,9 @@
         },
         "compile": {
           "ref/netstandard1.0/System.Resources.ResourceManager.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Runtime/4.1.0": {
@@ -1345,6 +1410,9 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Runtime.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Runtime.Extensions/4.1.0": {
@@ -1356,6 +1424,9 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Runtime.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Runtime.Handles/4.0.1": {
@@ -1381,6 +1452,9 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Runtime.InteropServices.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Runtime.InteropServices.RuntimeInformation/4.0.0": {
@@ -1396,6 +1470,9 @@
         },
         "compile": {
           "ref/netstandard1.1/System.Runtime.InteropServices.RuntimeInformation.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         },
         "runtimeTargets": {
           "runtimes/win/lib/netstandard1.1/_._": {
@@ -1692,6 +1769,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Text.Encoding.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Text.Encoding.CodePages/4.0.1": {
@@ -1730,6 +1810,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Text.Encoding.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Text.RegularExpressions/4.1.0": {
@@ -1789,6 +1872,9 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
         }
       },
       "System.Threading.Tasks.Dataflow/4.6.0": {
@@ -1880,6 +1966,9 @@
         },
         "compile": {
           "ref/netstandard1.2/System.Threading.Timer.dll": {}
+        },
+        "runtime": {
+          "lib/net451/_._": {}
         }
       },
       "System.Xml.ReaderWriter/4.0.11": {
@@ -1995,6 +2084,66 @@
     }
   },
   "libraries": {
+    "Google.ProtocolBuffers/2.4.1.555": {
+      "sha512": "JsaOFX3nr6F0nGkGk7stbD2jTpvy7vgBuY+chB6+qsimMPu7YvQ6BgNOjjHd2xFqmByUCUD8pF9D07kPug8N1g==",
+      "type": "package",
+      "path": "Google.ProtocolBuffers/2.4.1.555",
+      "files": [
+        "Google.ProtocolBuffers.2.4.1.555.nupkg.sha512",
+        "Google.ProtocolBuffers.nuspec",
+        "lib/cf20/Google.ProtocolBuffers.Serialization.dll",
+        "lib/cf20/Google.ProtocolBuffers.Serialization.xml",
+        "lib/cf20/Google.ProtocolBuffers.dll",
+        "lib/cf20/Google.ProtocolBuffers.xml",
+        "lib/cf35/Google.ProtocolBuffers.Serialization.dll",
+        "lib/cf35/Google.ProtocolBuffers.Serialization.xml",
+        "lib/cf35/Google.ProtocolBuffers.dll",
+        "lib/cf35/Google.ProtocolBuffers.xml",
+        "lib/net20/Google.ProtocolBuffers.Serialization.dll",
+        "lib/net20/Google.ProtocolBuffers.Serialization.xml",
+        "lib/net20/Google.ProtocolBuffers.dll",
+        "lib/net20/Google.ProtocolBuffers.xml",
+        "lib/net35/Google.ProtocolBuffers.Serialization.dll",
+        "lib/net35/Google.ProtocolBuffers.Serialization.xml",
+        "lib/net35/Google.ProtocolBuffers.dll",
+        "lib/net35/Google.ProtocolBuffers.xml",
+        "lib/net40/Google.ProtocolBuffers.Serialization.dll",
+        "lib/net40/Google.ProtocolBuffers.Serialization.xml",
+        "lib/net40/Google.ProtocolBuffers.dll",
+        "lib/net40/Google.ProtocolBuffers.xml",
+        "lib/portable-net40+sl4+sl5+wp7+wp8+win8/Google.ProtocolBuffers.Serialization.dll",
+        "lib/portable-net40+sl4+sl5+wp7+wp8+win8/Google.ProtocolBuffers.Serialization.xml",
+        "lib/portable-net40+sl4+sl5+wp7+wp8+win8/Google.ProtocolBuffers.dll",
+        "lib/portable-net40+sl4+sl5+wp7+wp8+win8/Google.ProtocolBuffers.xml",
+        "lib/sl20/Google.ProtocolBuffers.Serialization.dll",
+        "lib/sl20/Google.ProtocolBuffers.Serialization.xml",
+        "lib/sl20/Google.ProtocolBuffers.dll",
+        "lib/sl20/Google.ProtocolBuffers.xml",
+        "lib/sl30/Google.ProtocolBuffers.Serialization.dll",
+        "lib/sl30/Google.ProtocolBuffers.Serialization.xml",
+        "lib/sl30/Google.ProtocolBuffers.dll",
+        "lib/sl30/Google.ProtocolBuffers.xml",
+        "lib/sl40/Google.ProtocolBuffers.Serialization.dll",
+        "lib/sl40/Google.ProtocolBuffers.Serialization.xml",
+        "lib/sl40/Google.ProtocolBuffers.dll",
+        "lib/sl40/Google.ProtocolBuffers.xml",
+        "tools/CHANGES.txt",
+        "tools/Google.ProtocolBuffers.Serialization.dll",
+        "tools/Google.ProtocolBuffers.dll",
+        "tools/ProtoBench.exe",
+        "tools/ProtoDump.exe",
+        "tools/ProtoGen.exe",
+        "tools/ProtoGen.exe.config",
+        "tools/ProtoMunge.exe",
+        "tools/google/protobuf/compiler/plugin.proto",
+        "tools/google/protobuf/csharp_options.proto",
+        "tools/google/protobuf/descriptor.proto",
+        "tools/license.txt",
+        "tools/protoc-license.txt",
+        "tools/protoc.exe",
+        "tools/tutorial/addressbook.proto"
+      ]
+    },
     "Libuv/1.9.0": {
       "sha512": "9Q7AaqtQhS8JDSIvRBt6ODSLWDBI4c8YxNxyCQemWebBFUtBbc6M5Vi5Gz1ZyIUlTW3rZK9bIr5gnVyv0z7a2Q==",
       "type": "package",
@@ -2349,6 +2498,21 @@
         "runtimes/win/lib/net46/Microsoft.Win32.Registry.dll",
         "runtimes/win/lib/netcore50/_._",
         "runtimes/win/lib/netstandard1.3/Microsoft.Win32.Registry.dll"
+      ]
+    },
+    "MySql.Data/7.0.4-IR19": {
+      "sha512": "0lQVFSk8HA2ZkPjmoWxfuh0Qc78Bkd2dq5Lsrk7Jj7uUNWiuIgL7RAV3wmCpsLiZ2/ZSTeXjM2SgNiiUPeGE7A==",
+      "type": "package",
+      "path": "MySql.Data/7.0.4-IR19",
+      "files": [
+        "CHANGES",
+        "MySql.Data.7.0.4-IR19.nupkg.sha512",
+        "MySql.Data.nuspec",
+        "Readme.txt",
+        "content/app.config.transform",
+        "content/web.config.transform",
+        "lib/net451/MySql.Data.XML",
+        "lib/net451/MySql.Data.dll"
       ]
     },
     "NETStandard.Library/1.6.0": {
@@ -6590,6 +6754,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.NETCore.App >= 1.0.0",
+      "MySql.Data >= 7.0.4-IR19",
       "System.Xml.XmlDocument >= 4.0.1"
     ],
     ".NETCoreApp,Version=v1.0": []

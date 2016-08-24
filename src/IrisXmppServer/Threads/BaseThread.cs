@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace NetCoreXmppServer.Threads
+namespace IrisXMPPServer.Threads
 {
     public abstract class BaseThread
     {

@@ -1,5 +1,5 @@
-﻿using NetCoreXmppServer.CoreClasses;
-using NetCoreXmppServer.Helpers;
+﻿using IrisXMPPServer.CoreClasses;
+using IrisXMPPServer.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NetCoreXmppServer.Threads
+namespace IrisXMPPServer.Threads
 {
     public class MainConnectionThread : BaseThread
     {

@@ -1,12 +1,12 @@
-﻿using NetCoreXmppServer.CoreClasses;
-using NetCoreXmppServer.Enums;
+﻿using IrisXMPPServer.CoreClasses;
+using IrisXMPPServer.Enums;
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 using System.Xml;
 
-namespace NetCoreXmppServer.Helpers
+namespace IrisXMPPServer.Helpers
 {
     public class SocketHelper
     {
