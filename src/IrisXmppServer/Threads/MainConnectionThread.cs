@@ -1,4 +1,5 @@
 ﻿using IrisXMPPServer.CoreClasses;
+using IrisXMPPServer.Database;
 using IrisXMPPServer.Helpers;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace IrisXMPPServer.Threads
         private TcpListener tcpListener;
         private ConnectionState connectionState;
         public static List<Client> clients = new List<Client>();
+        private Database.DbHandler handler;
 
         public ConnectionState getConnectionState()
         {
@@ -23,6 +25,7 @@ namespace IrisXMPPServer.Threads
         public MainConnectionThread() : base()
         {
             connectionState = new ConnectionState();
+            handler = new Database.DbHandler(Configuration.databaseEngine, Configuration.databaseHost, Configuration.databasePort, Configuration.databaseUser, Configuration.databasePassword, Configuration.databaseSchema);
         }
 
         private async Task<TcpClient> acceptTcpClient()
@@ -95,7 +98,7 @@ namespace IrisXMPPServer.Threads
                         {
                             clientSocket = AcceptClient().Result;
                             handleClient client = new handleClient();
-                            client.startClient(clientSocket);
+                            client.startClient(clientSocket, handler);
                         }
 
                         clientSocket.Dispose();
@@ -125,9 +128,11 @@ namespace IrisXMPPServer.Threads
         private class handleClient
         {
             TcpClient clientSocket;
-            public void startClient(TcpClient inClientSocket)
+            DbHandler dbHandler;
+            public void startClient(TcpClient inClientSocket, DbHandler dbHandler)
             {
                 this.clientSocket = inClientSocket;
+                this.dbHandler = dbHandler;
                 Thread ctThread = new Thread(doChat);
                 ctThread.Start();
             }
@@ -139,7 +144,7 @@ namespace IrisXMPPServer.Threads
                 newClient.Connected = true;
                 clients.Add(newClient);
                                
-                SocketHelper helper = new SocketHelper(newClient);
+                SocketHelper helper = new SocketHelper(newClient, dbHandler);
 
                 while (newClient.Connected)
                 {

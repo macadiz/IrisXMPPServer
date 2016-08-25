@@ -7,7 +7,8 @@ namespace IrisXMPPServer.Enums
 {
     public enum IQContext
     {
-        AUTH,
+        AUTH_GET,
+        AUTH_SET,
         PING,
         UNKNOWN
     }

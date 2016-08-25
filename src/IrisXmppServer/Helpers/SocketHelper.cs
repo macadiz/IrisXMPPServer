@@ -1,4 +1,5 @@
 ﻿using IrisXMPPServer.CoreClasses;
+using IrisXMPPServer.Database;
 using IrisXMPPServer.Enums;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,12 @@ namespace IrisXMPPServer.Helpers
         string mstrResponse;
         byte[] bytesSent;
         private Client client;
+        private DbHandler dbHandler;
 
-        public SocketHelper(Client client)
+        public SocketHelper(Client client, DbHandler dbHandler)
         {
             this.client = client;
+            this.dbHandler = dbHandler;
         }
 
         public void processMsg()
@@ -73,7 +76,7 @@ namespace IrisXMPPServer.Helpers
                             }
                             else
                             {
-                                salida = "<?xml version='1.0'?><stream:stream from='192.168.0.6' id='" + client.InternalId + "' xmlns='jabber:client' xmlns:stream='http://etherx.jabber.org/streams' version='1.0'>";
+                                salida = "<?xml version='1.0'?><stream:stream from='" + Configuration.hostName + "' id='" + client.InternalId + "' xmlns='jabber:client' xmlns:stream='http://etherx.jabber.org/streams' version='1.0'>";
                                 //salida += "<stream:features><mechanisms xmlns='urn:ietf:params:xml:ns:xmpp-sasl'><mechanism>PLAIN</mechanism></mechanisms></stream:features>";
                             }
                             return salida;
@@ -90,9 +93,60 @@ namespace IrisXMPPServer.Helpers
                             IQContext context = resolveIQContext(root, out msgId, out from);
                             switch(context)
                             {
-                                case IQContext.AUTH:
+                                case IQContext.AUTH_GET:
                                     {
                                         salida = "<iq type='result' id='" + msgId + "'><query xmlns='jabber:iq:auth'><username/><password/><resource/></query></iq>";
+                                        break;
+                                    }
+                                case IQContext.AUTH_SET:
+                                    {
+                                        string userName = "";
+                                        string password = "";
+                                        string resource = "";
+                                        XmlNode query = null;
+                                        if (root.HasChildNodes)
+                                        {
+                                            foreach (XmlNode childNode in root.ChildNodes)
+                                            {
+                                                if (childNode.Name.ToLower().Equals("query"))
+                                                {
+                                                    query = childNode;
+                                                    if (query.HasChildNodes)
+                                                    {
+                                                        foreach (XmlNode validation in query.ChildNodes)
+                                                        {
+                                                            switch (validation.Name)
+                                                            {
+                                                                case "username":
+                                                                    {
+                                                                        userName = validation.InnerText;
+                                                                        break;
+                                                                    }
+                                                                case "password":
+                                                                    {
+                                                                        password = validation.InnerText;
+                                                                        break;
+                                                                    }
+                                                                case "resource":
+                                                                    {
+                                                                        resource = validation.InnerText;
+                                                                        break;
+                                                                    }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            if (dbHandler.UserAuthentication(userName + "@" + Configuration.hostName, resource, password))
+                                            {
+                                                salida = "<iq type='result' id='" + msgId + "'><query xmlns='jabber:iq:register'/></iq>";
+                                            }
+                                            else
+                                            {
+                                                salida = "<iq type='error' id='" + msgId + "'>" +  query.OuterXml + "<error code='409'>Username Not Available</error></iq>";
+                                            }
+                                            
+                                        }
                                         break;
                                     }
                                 case IQContext.PING:
@@ -241,7 +295,18 @@ namespace IrisXMPPServer.Helpers
                                 {
                                     if (child.Attributes[i].Value.Equals("jabber:iq:auth"))
                                     {
-                                        context = IQContext.AUTH;
+                                        if(IQNode.Attributes["type"] != null)
+                                        {
+                                            if (IQNode.Attributes["type"].Value.ToString().ToLower().Equals("get"))
+                                            {
+                                                context = IQContext.AUTH_GET;
+                                            }
+                                            else if (IQNode.Attributes["type"].Value.ToString().ToLower().Equals("set"))
+                                            {
+                                                context = IQContext.AUTH_SET;
+                                            }
+                                        }
+                                        
                                     }
                                 }
                             }
@@ -266,6 +331,15 @@ namespace IrisXMPPServer.Helpers
                 }
             }
             return context;
+        }
+
+        public new Dictionary<string, string> stripAuthStanza()
+        {
+
+            return new Dictionary<string, string> {
+                { "foo", "some foo value" },
+                { "bar", "some bar value" }
+            };
         }
 
         //public dynamic stanzaToObject(string stanza)

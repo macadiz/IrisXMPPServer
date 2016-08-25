@@ -9,7 +9,8 @@
       "type": "platform",
       "version": "1.0.0"
     },
-    "MySql.Data": "7.0.4-IR19",
+    "MySql.Data.Core": "7.0.4-IR-19",
+    "System.Data.SqlClient": "4.1.0",
     "System.Xml.XmlDocument": "4.0.1"
   },
 
