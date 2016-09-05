@@ -17,7 +17,7 @@ namespace IrisXMPPServer.Database.Engines
             mySqlConnectionString = "server=" + host + ";port=" + port + ";uid=" + user + ";pwd=" + password + ";database=" + schema + ";SslMode=None";
         }
 
-        public void OpenConnection()
+        public override void OpenConnection()
         {
             try
             {
@@ -31,7 +31,7 @@ namespace IrisXMPPServer.Database.Engines
             }
         }
 
-        public void CloseConnection()
+        public override void CloseConnection()
         {
             try
             {

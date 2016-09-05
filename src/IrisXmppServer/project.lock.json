@@ -3,6 +3,36 @@
   "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.0": {
+      "AMQPNetLite/1.2.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.11",
+          "System.Collections.Concurrent": "4.0.12",
+          "System.Collections.NonGeneric": "4.0.0",
+          "System.Diagnostics.Tools": "4.0.0",
+          "System.Net.NameResolution": "4.0.0",
+          "System.Net.Security": "4.0.0",
+          "System.Net.Sockets": "4.1.0",
+          "System.Reflection": "4.1.0",
+          "System.Reflection.Emit.Lightweight": "4.0.0",
+          "System.Reflection.Extensions": "4.0.1",
+          "System.Reflection.TypeExtensions": "4.1.0",
+          "System.Runtime.Serialization.Primitives": "4.1.0",
+          "System.Security.Claims": "4.0.1",
+          "System.Security.Principal": "4.0.1",
+          "System.Threading": "4.0.11",
+          "System.Threading.Tasks": "4.0.11",
+          "System.Threading.Thread": "4.0.0",
+          "System.Threading.ThreadPool": "4.0.10",
+          "System.Threading.Timer": "4.0.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Amqp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Amqp.dll": {}
+        }
+      },
       "Google.Protobuf/3.0.0-beta4": {
         "type": "package",
         "dependencies": {
@@ -430,7 +460,7 @@
           }
         }
       },
-      "MySql.Data.Core/7.0.4-IR-19": {
+      "MySql.Data.Core/7.0.4-IR-191": {
         "type": "package",
         "dependencies": {
           "Google.Protobuf": "3.0.0-beta4",
@@ -676,9 +706,6 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Collections.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Collections.Concurrent/4.0.12": {
@@ -906,9 +933,6 @@
         "compile": {
           "ref/netstandard1.3/System.Data.SqlClient.dll": {}
         },
-        "runtime": {
-          "lib/net451/System.Data.SqlClient.dll": {}
-        },
         "runtimeTargets": {
           "runtimes/unix/lib/netstandard1.3/System.Data.SqlClient.dll": {
             "assetType": "runtime",
@@ -929,9 +953,6 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Diagnostics.Debug.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Diagnostics.DiagnosticSource/4.0.0": {
@@ -1059,9 +1080,6 @@
         },
         "compile": {
           "ref/netstandard1.0/System.Diagnostics.Tools.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Diagnostics.TraceSource/4.0.0": {
@@ -1100,9 +1118,6 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Diagnostics.Tracing.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Dynamic.Runtime/4.0.11": {
@@ -1140,9 +1155,6 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Globalization.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Globalization.Calendars/4.0.1": {
@@ -1192,9 +1204,6 @@
         },
         "compile": {
           "ref/netstandard1.5/System.IO.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.IO.Compression/4.1.0": {
@@ -1217,9 +1226,6 @@
         },
         "compile": {
           "ref/netstandard1.3/System.IO.Compression.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netstandard1.3/System.IO.Compression.dll": {
@@ -1520,9 +1526,6 @@
         "compile": {
           "ref/netstandard1.3/System.Net.Http.dll": {}
         },
-        "runtime": {
-          "lib/net45/_._": {}
-        },
         "runtimeTargets": {
           "runtimes/unix/lib/netstandard1.6/System.Net.Http.dll": {
             "assetType": "runtime",
@@ -1576,9 +1579,6 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Net.Primitives.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Net.Requests/4.0.11": {
@@ -1600,9 +1600,6 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Net.Requests.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         },
         "runtimeTargets": {
           "runtimes/win/lib/netstandard1.3/_._": {
@@ -1728,9 +1725,6 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Reflection.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Reflection.DispatchProxy/4.0.1": {
@@ -1778,7 +1772,7 @@
           "System.Runtime": "4.1.0"
         },
         "compile": {
-          "ref/netstandard1.0/_._": {}
+          "ref/netstandard1.0/System.Reflection.Emit.ILGeneration.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.ILGeneration.dll": {}
@@ -1793,7 +1787,7 @@
           "System.Runtime": "4.1.0"
         },
         "compile": {
-          "ref/netstandard1.0/_._": {}
+          "ref/netstandard1.0/System.Reflection.Emit.Lightweight.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.Lightweight.dll": {}
@@ -1809,9 +1803,6 @@
         },
         "compile": {
           "ref/netstandard1.0/System.Reflection.Extensions.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Reflection.Metadata/1.3.0": {
@@ -1849,9 +1840,6 @@
         },
         "compile": {
           "ref/netstandard1.0/System.Reflection.Primitives.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Reflection.TypeExtensions/4.1.0": {
@@ -1894,9 +1882,6 @@
         },
         "compile": {
           "ref/netstandard1.0/System.Resources.ResourceManager.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Runtime/4.1.0": {
@@ -1907,9 +1892,6 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Runtime.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Runtime.Extensions/4.1.0": {
@@ -1921,9 +1903,6 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Runtime.Extensions.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Runtime.Handles/4.0.1": {
@@ -1949,9 +1928,6 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Runtime.InteropServices.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Runtime.InteropServices.RuntimeInformation/4.0.0": {
@@ -1967,9 +1943,6 @@
         },
         "compile": {
           "ref/netstandard1.1/System.Runtime.InteropServices.RuntimeInformation.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Runtime.InteropServices.RuntimeInformation.dll": {}
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netstandard1.1/System.Runtime.InteropServices.RuntimeInformation.dll": {
@@ -2307,9 +2280,6 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Text.Encoding.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Text.Encoding.CodePages/4.0.1": {
@@ -2352,9 +2322,6 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Text.Encoding.Extensions.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Text.RegularExpressions/4.1.0": {
@@ -2418,9 +2385,6 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
-        },
-        "runtime": {
-          "lib/net45/_._": {}
         }
       },
       "System.Threading.Tasks.Dataflow/4.6.0": {
@@ -2512,9 +2476,6 @@
         },
         "compile": {
           "ref/netstandard1.2/System.Threading.Timer.dll": {}
-        },
-        "runtime": {
-          "lib/net451/_._": {}
         }
       },
       "System.Xml.ReaderWriter/4.0.11": {
@@ -2630,6 +2591,64 @@
     }
   },
   "libraries": {
+    "AMQPNetLite/1.2.0": {
+      "sha512": "BT/6wY6F50WIsH1TUBeAH0BrBhKKHuACDX62t/acOJmiT24biOMmvInNXc58xuag04n/tDlpbUFvPz3Fwtxk9g==",
+      "type": "package",
+      "path": "AMQPNetLite/1.2.0",
+      "files": [
+        "AMQPNetLite.1.2.0.nupkg.sha512",
+        "AMQPNetLite.nuspec",
+        "lib/net-cf/Amqp.NetCF39.XML",
+        "lib/net-cf/Amqp.NetCF39.dll",
+        "lib/net-cf/Amqp.NetCF39.pdb",
+        "lib/net35/Amqp.Net35.XML",
+        "lib/net35/Amqp.Net35.dll",
+        "lib/net35/Amqp.Net35.pdb",
+        "lib/net40/Amqp.Net.XML",
+        "lib/net40/Amqp.Net.dll",
+        "lib/net40/Amqp.Net.dll.config",
+        "lib/net40/Amqp.Net.pdb",
+        "lib/net45/Amqp.Net.XML",
+        "lib/net45/Amqp.Net.dll",
+        "lib/net45/Amqp.Net.pdb",
+        "lib/netcore451/Amqp.NetCore.XML",
+        "lib/netcore451/Amqp.NetCore.dll",
+        "lib/netcore451/Amqp.NetCore.pdb",
+        "lib/netmf42/Amqp.NetMF.XML",
+        "lib/netmf42/Amqp.NetMF.dll",
+        "lib/netmf42/Amqp.NetMF.pdb",
+        "lib/netmf42/be/Amqp.NetMF.pdbx",
+        "lib/netmf42/be/Amqp.NetMF.pe",
+        "lib/netmf42/le/Amqp.NetMF.pdbx",
+        "lib/netmf42/le/Amqp.NetMF.pe",
+        "lib/netmf43/Amqp.NetMF.XML",
+        "lib/netmf43/Amqp.NetMF.dll",
+        "lib/netmf43/Amqp.NetMF.pdb",
+        "lib/netmf43/be/Amqp.NetMF.pdbx",
+        "lib/netmf43/be/Amqp.NetMF.pe",
+        "lib/netmf43/le/Amqp.NetMF.pdbx",
+        "lib/netmf43/le/Amqp.NetMF.pe",
+        "lib/netmf44/Amqp.NetMF.XML",
+        "lib/netmf44/Amqp.NetMF.dll",
+        "lib/netmf44/Amqp.NetMF.pdb",
+        "lib/netmf44/be/Amqp.NetMF.pdbx",
+        "lib/netmf44/be/Amqp.NetMF.pe",
+        "lib/netmf44/le/Amqp.NetMF.pdbx",
+        "lib/netmf44/le/Amqp.NetMF.pe",
+        "lib/netstandard1.3/Amqp.dll",
+        "lib/netstandard1.3/Amqp.pdb",
+        "lib/netstandard1.3/Amqp.xml",
+        "lib/windows8/Amqp.Store.XML",
+        "lib/windows8/Amqp.Store.dll",
+        "lib/windows8/Amqp.Store.pdb",
+        "lib/windowsphone8/Amqp.WP.XML",
+        "lib/windowsphone8/Amqp.WP.dll",
+        "lib/windowsphone8/Amqp.WP.pdb",
+        "lib/wpa81/Amqp.NetCore.XML",
+        "lib/wpa81/Amqp.NetCore.dll",
+        "lib/wpa81/Amqp.NetCore.pdb"
+      ]
+    },
     "Google.Protobuf/3.0.0-beta4": {
       "sha512": "uBij/IkxC5L5Rla0xoRQTk+kPb4SkgOkbelsJcBMl6p0GsJ75h6S9zf6LsoOfh4bWRPlrK7eUHKpAKul0P6omQ==",
       "type": "package",
@@ -3095,13 +3114,15 @@
         "runtimes/win/lib/netstandard1.3/Microsoft.Win32.Registry.dll"
       ]
     },
-    "MySql.Data.Core/7.0.4-IR-19": {
-      "sha512": "YpVN7nc1c2Xu7R7sbylxvlI7FpRHn5ZO0xMhM01aOOFCV6n9CaaeBFG3AAJdLpPuGrtbmMCX7Ni44M3xNNJDNw==",
+    "MySql.Data.Core/7.0.4-IR-191": {
+      "sha512": "+motbJL/HNhErU6x9MGVpMfBUClc/XYIGrbxIfMhP6oqCq3sud9A4n2HunvJQIuv9eM9852v83m2H1EUr9RLdw==",
       "type": "package",
-      "path": "MySql.Data.Core/7.0.4-IR-19",
+      "path": "MySql.Data.Core/7.0.4-IR-191",
       "files": [
-        "MySql.Data.Core.7.0.4-IR-19.nupkg.sha512",
+        "Content/ReleaseNotes.txt",
+        "MySql.Data.Core.7.0.4-IR-191.nupkg.sha512",
         "MySql.Data.Core.nuspec",
+        "README",
         "lib/netstandard1.6/MySql.Data.Core.dll"
       ]
     },
@@ -7841,8 +7862,9 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "AMQPNetLite >= 1.2.0",
       "Microsoft.NETCore.App >= 1.0.0",
-      "MySql.Data.Core >= 7.0.4-IR-19",
+      "MySql.Data.Core >= 7.0.4-IR-191",
       "System.Data.SqlClient >= 4.1.0",
       "System.Xml.XmlDocument >= 4.0.1"
     ],

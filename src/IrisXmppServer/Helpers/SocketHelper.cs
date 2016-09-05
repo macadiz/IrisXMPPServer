@@ -77,7 +77,7 @@ namespace IrisXMPPServer.Helpers
                             else
                             {
                                 salida = "<?xml version='1.0'?><stream:stream from='" + Configuration.hostName + "' id='" + client.InternalId + "' xmlns='jabber:client' xmlns:stream='http://etherx.jabber.org/streams' version='1.0'>";
-                                //salida += "<stream:features><mechanisms xmlns='urn:ietf:params:xml:ns:xmpp-sasl'><mechanism>PLAIN</mechanism></mechanisms></stream:features>";
+                                salida += "<stream:features><mechanisms xmlns='urn:ietf:params:xml:ns:xmpp-sasl'><mechanism>DIGEST-MD5</mechanism></mechanisms></stream:features>";
                             }
                             return salida;
                         }
@@ -162,6 +162,11 @@ namespace IrisXMPPServer.Helpers
                             }
                             return salida;
                         }
+                    case MessageType.AUTH:
+                        {
+                            return "NOT YET IMPLEMENTED";
+                            break;
+                        }
                     default:
                         {
                             return "";
@@ -195,6 +200,10 @@ namespace IrisXMPPServer.Helpers
             {
                 return MessageType.MESSAGE;
             }
+            else if (nodeName.Equals("auth"))
+            {
+                return MessageType.AUTH;
+            }
             else
             {
                 return MessageType.UNKNOWN;
@@ -209,16 +218,19 @@ namespace IrisXMPPServer.Helpers
             string finalXml = "";
             foreach (string xmlString in xmlStrings)
             {
-                string nodeName = xmlString.Substring(1, ((xmlString.IndexOf(' ') > -1) ? xmlString.IndexOf(' ') : xmlString.IndexOf('>')) - 1);
-                if (nodeName.Contains(":"))
+                if (!xmlString.Contains("<?xml"))
                 {
-                    nsString += " xmlns:" + nodeName.Split(':')[0] + "='-'";
+                    string nodeName = xmlString.Substring(1, ((xmlString.IndexOf(' ') > -1) ? xmlString.IndexOf(' ') : xmlString.IndexOf('>')) - 1);
+                    if (nodeName.Contains(":"))
+                    {
+                        nsString += " xmlns:" + nodeName.Split(':')[0] + "='-'";
+                    }
+                    if (xmlString.Equals("<stream:stream></stream:stream>"))
+                    {
+                        stanzaAttributes += " closeConnection='1'";
+                    }
+                    finalXml += xmlString;
                 }
-                if (xmlString.Equals("<stream:stream></stream:stream>"))
-                {
-                    stanzaAttributes += " closeConnection='1'";
-                }
-                finalXml += xmlString;
             }
             return string.Format(stanzaTemplate, nsString, stanzaAttributes, finalXml);
         }
@@ -244,8 +256,15 @@ namespace IrisXMPPServer.Helpers
                     int lastNodeOcurrence = xmlString.LastIndexOf(nodeName);
                     if (firstNodeOcurrence == lastNodeOcurrence)
                     {
-                        original = xmlString.Substring(0, xmlString.IndexOf('>') + 1);
-                        toAdd = xmlString.Substring(0, xmlString.IndexOf('>') + 1) + "</" + nodeName + ">";
+                        string aux = xmlString.Substring(0, xmlString.IndexOf('>') + 1);
+                        original = aux;
+                        Console.WriteLine("=======================DEBUG");
+                        Console.WriteLine(original);
+                        if (aux.Contains("/"))
+                        {
+                            aux = aux.Replace("/", "");
+                        }
+                        toAdd = aux + "</" + nodeName + ">";
                     }
                     else
                     {

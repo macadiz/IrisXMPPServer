@@ -5,19 +5,20 @@
   },
 
   "dependencies": {
+    "AMQPNetLite": "1.2.0",
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.0"
     },
-    "MySql.Data.Core": "7.0.4-IR-19",
+    "MySql.Data.Core": "7.0.4-IR-191",
     "System.Data.SqlClient": "4.1.0",
     "System.Xml.XmlDocument": "4.0.1"
   },
 
   "frameworks": {
     "netcoreapp1.0": {
-      //"imports": "dnxcore50"
-      "imports": "net451"
+      "imports": "dnxcore50"
+      //"imports": "net451"
     }
   }
 }

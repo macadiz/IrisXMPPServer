@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace IrisXMPPServer.Database.Engines
 {
-    public class DataBaseEngine
+    public abstract class DataBaseEngine
     {
         private string host;
         private int port;
@@ -86,5 +86,9 @@ namespace IrisXMPPServer.Database.Engines
             this.password = password;
             this.schema = schema;
         }
+
+        abstract public void OpenConnection();
+        abstract public void CloseConnection();
+
     }
 }
