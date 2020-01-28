@@ -1,3 +1,3 @@
 IrisXmppServer
 
-Software in development... Not working at all
+Software in development...
