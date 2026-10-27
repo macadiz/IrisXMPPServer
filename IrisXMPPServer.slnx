@@ -2,4 +2,7 @@
   <Folder Name="/src/">
     <Project Path="src/IrisXmppServer/IrisXmppServer.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/IrisXmppServer.Tests/IrisXmppServer.Tests.csproj" />
+  </Folder>
 </Solution>
